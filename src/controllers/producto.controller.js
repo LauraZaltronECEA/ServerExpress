@@ -2,33 +2,33 @@ const ProductoService = require('../services/producto.services')
 
 const serviceProducto = new ProductoService()
 
-function getProducto(req,res){
+function getProducto(req, res, next){
     try{
-        const productos = serviceProducto.get()
+        const productos = serviceProducto.get(req,res)
         res.json(productos)
     }catch(error){
-        res.status(500).json({message: error.message})
+        next(error)
     }
 }
 
-function getProductoPorCategoria(req, res){
+function getProductoPorCategoria(req, res, next){
     try{
         const categoria = req.params.categoria
         const productos = serviceProducto.getProductoPorCategoria(categoria)
         res.json(productos)
     }catch(error){
-        res.status(404).json({message: error.message})
+        next(error)
     }
 }
 
-function postProducto(req,res){
+function postProducto(req,res,next){
     try{
         const categoria = req.params.categoria
         const producto = req.body
         const productoNuevo = serviceProducto.post(categoria, producto)
         res.status(201).json(productoNuevo)
     }catch(error){
-        res.status(404).json({message: error.message})
+        next(error)
     }
 
 }

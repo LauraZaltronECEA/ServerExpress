@@ -16,7 +16,9 @@ class ProductoService{
         if (productosCategoria){
             return productosCategoria
         }else{
-            throw new Error('la categoria' + categoria + ' no existe')
+            const error = new Error(`la categoria ${categoria} no existe`)
+            error.status = 404
+            throw new Error()
         }        
     }
 
