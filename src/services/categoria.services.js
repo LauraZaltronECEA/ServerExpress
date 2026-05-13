@@ -1,4 +1,4 @@
-const productos = require('../data/productos')
+const productos = require('../db/connection')
 
 class CategoriaService{
 
