@@ -3,27 +3,22 @@ const joi = require('joi')
 //atributos del objeto sean objetos de joi
 const id = joi.number().min(1)
 
-const descripcion = joi.string().min(3).max(15).strip().message({
+const descripcion = joi.string().min(3).max(15).required().messages({
     'string.min': 'La descripcion debe tener por lo menos {#limit} caracteres',
     'string.max': 'La descripcion debe tener como maximo {#limit} caracteres',
     'any.required': 'La descripcion es obligatoria'
-})//mensajes personalizados para q el output no este en ingles
+}).strip();//mensajes personalizados para q el output no este en ingles
 
-const precio = joi.number().min(100).message({
+const precio = joi.number().min(100).messages({
     'number.min': 'El precio debe ser igual o mayor a {#limit}',
     'any.required': 'El precio es obligatorio'
 })//mensajes personalizados para q el output no este en ingles
 
-const categoria = joi.string().min(3).max(15).required().message({
-    'string.min': 'La categoria debe tener por lo menos {#limit} caracteres',
-    'string.max': 'La categoria debe tener como maximo {#limit} caracteres',
-    'any.required': 'La categoria es obligatoria'
-})//mensajes personalizados para q el output no este en ingles
+const categoria = joi.number().required()
 
 const postProductoSchema = joi.object({
     //aca puedo ir jugando con los valores que tengo. Si quiero que sea required o no, cuanto es el max, min, etc.
     //Estos nombres tienen que coincidir con los del body
-    id: id.required(),
     descripcion: descripcion.required(),
     precio: precio.required()
 })
